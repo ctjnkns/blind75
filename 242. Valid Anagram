@@ -1,0 +1,62 @@
+
+# Approach 1
+<!-- Describe your approach to solving the problem. -->
+Fist check if lens match. Then create a map for each string with key/value pairs representing characters and the number of times the character occurs. Iterate over one of the maps and compare the values of each key, return false if they don't match.
+
+## Complexity
+- Time complexity: O(n) // technically s+t, iterate over both maps
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(n) //technically s+t, create two maps
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+## Code
+```
+func isAnagram(s string, t string) bool {
+    if len(s) != len(t) {
+        return false
+    }
+
+    sMap := make(map[string]int)
+    tMap := make(map[string]int)
+    for i, _ := range s {
+        sMap[string(s[i])] += 1
+        tMap[string(t[i])] += 1
+    }
+   for tKey, tVal := range tMap {
+      if sVal, ok := sMap[tKey]; !ok || tVal != sVal {
+         return false
+      }
+   }
+    return true
+}
+```
+
+# Approach 2
+<!-- Describe your approach to solving the problem. -->
+Sort each string, then compare the strings since they will be equal if they're an anagram once sorted.
+
+## Complexity
+- Time complexity: O(nlogn) //sort
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(n) //Ideally O(1) with optimal sorting, but here we split/join
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+## Code
+```
+func isAnagram(s string, t string) bool {
+    //https://stackoverflow.com/a/22689818
+    ss := strings.Split(s, "")
+    sort.Strings(ss)
+    fmt.Println(ss)
+    tt := strings.Split(t, "")
+    sort.Strings(tt)
+    s = strings.Join(ss, "")
+    t = strings.Join(tt, "")
+    if s == t {
+        return true
+    }
+    return false
+}
+```
