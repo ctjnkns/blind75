@@ -1,0 +1,22 @@
+func minCostClimbingStairs(cost []int) int {
+    n := len(cost)
+    dp := make([]int, n)
+    for i := 0; i < n; i++ {
+        if i < 2 {
+            dp[i] = cost[i]
+        } else {
+            oneBack := dp[i-1]
+            twoBack := dp[i-2]
+            min := oneBack
+            if twoBack < min {
+                min = twoBack
+            }
+            dp[i] = cost[i] + min
+        }
+    }
+    result := dp[n - 1]
+    if dp[n - 2] < result {
+        result = dp[n - 2]
+    }
+    return result
+}
