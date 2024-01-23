@@ -1,0 +1,25 @@
+func lengthOfLIS(nums []int) int {
+    dp := make([]int, len(nums))
+    for i := range dp {
+        dp[i] = 1
+    }
+
+    for i := len(nums) - 1; i >= 0; i-- {
+        for j := i + 1; j < len(nums); j++ {
+            cur := 1
+            if nums[i] < nums[j] {
+                cur = 1 + dp[j]
+            }
+            if cur > dp[i] {
+                dp[i] = cur
+            }
+        }
+    }
+    max := dp[0]
+    for i := range dp {
+        if dp[i] > max {
+            max = dp[i]
+        }
+    }
+    return max
+}
