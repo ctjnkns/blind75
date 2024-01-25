@@ -1,0 +1,25 @@
+func rob(nums []int) int {
+    if len(nums) == 1 {
+        return nums[0]
+    }
+    rob1 := helper(nums[1:])
+    result := helper(nums[:len(nums) - 1])
+    if rob1 > result {
+        result = rob1
+    }
+    return result
+}
+
+func helper(nums []int) int {
+    rob1 := 0
+    rob2 := 0
+    for _, n := range nums {
+        max := rob2 
+        if n + rob1 > rob2 {
+            max = n + rob1
+        }
+        rob1 = rob2
+        rob2 = max
+    }
+    return rob2
+}
